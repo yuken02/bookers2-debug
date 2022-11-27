@@ -10,6 +10,8 @@ class UsersController < ApplicationController
   def index
     @users = User.all
     @book = Book.new
+    # @q = User.ransack(params[:q])
+    # @results = @q.result(distinct: true)
   end
 
   def edit

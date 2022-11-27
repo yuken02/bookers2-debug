@@ -1,0 +1,6 @@
+<% if user_signed_in? %>
+  <%= form_with url: search_path do |f| %>
+    <%= f.text_field :word %>
+    <%= f.select :range %>
+  <% end %>
+<% end %>

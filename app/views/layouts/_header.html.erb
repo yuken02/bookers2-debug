@@ -54,4 +54,14 @@
       </div>
     </div>
   </nav>
+  <div class="my-1 ">
+    <% if user_signed_in? %>
+      <%= form_with url: search_path, local: true, method: :get do |f| %>
+        <%= f.text_field :search %>
+        <%= f.select :range, options_for_select([['User'], ['Book']]) %>
+        <%= f.select :condition, options_for_select([["完全一致", "perfect_matching"],["前方一致", "prefix_match"], ["後方一致", "backward_match"], ["部分一致", "partial_Match"]]) %>
+        <%= f.submit "検索" %>
+      <% end %>
+    <% end %>
+  </div>
 </header>

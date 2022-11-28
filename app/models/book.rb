@@ -14,13 +14,13 @@ class Book < ApplicationRecord
   #検索機能
   def self.find_out(method, keyword)
     if method == "perfect_matching"
-      @book = Book.where("name LIKE?", "#{keyword}")
+      @book = Book.where("title LIKE?", "#{keyword}")
     elsif method == "prefix_match"
-      @book = Book.where("name LIKE?", "#{keyword}%")
+      @book = Book.where("title LIKE?", "#{keyword}%")
     elsif method == "backward_match"
-      @book = Book.where("name LIKE?", "%#{keyword}")
+      @book = Book.where("title LIKE?", "%#{keyword}")
     else
-      @book = Book.where("name LIKE?", "%#{keyword}%")
+      @book = Book.where("title LIKE?", "%#{keyword}%")
     end
   end
 end

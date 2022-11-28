@@ -1,4 +1,4 @@
-  <div class="my-1 ">
+  <div class="my-1 d-flex justify-content-center">
     <% if user_signed_in? %>
       <%= form_with url: search_path, local: true, method: :get do |f| %>
         <%= f.text_field :keyword %>

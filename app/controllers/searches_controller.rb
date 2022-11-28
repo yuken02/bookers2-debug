@@ -2,15 +2,16 @@ class SearchesController < ApplicationController
   before_action :authenticate_user!
   before_action :search
 
-  def index
-    @range = params[:range]
-  end
-
   def search
-    @q = User.ransack(params[:q])
+    @range = params[:range]
+    @method = params[:method]
+    @keyword = params[:keyword]
+
+    if @range == "User"
+      @users = User.find_out(params[:method],params[:keyword])
+    else
+      @books = Book.find_out(params[:method],params[:keyword])
+    end
   end
 
-  def show
-    @results = @q.result(distinct: true)
-  end
 end

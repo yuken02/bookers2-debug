@@ -34,4 +34,17 @@ class User < ApplicationRecord
   def following?(user)
     followings.include?(user)
   end
+  
+  #検索機能
+  def self.find_out(method, keyword)
+    if method == "perfect_matching"
+      @user = User.where("name LIKE?", "#{keyword}")
+    elsif method == "prefix_match"
+      @user = User.where("name LIKE?", "#{keyword}%")
+    elsif method == "backward_match"
+      @user = User.where("name LIKE?", "%#{keyword}")
+    else
+      @user = User.where("name LIKE?", "%#{keyword}%")
+    end
+  end
 end

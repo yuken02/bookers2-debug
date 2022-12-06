@@ -6,12 +6,23 @@ class UsersController < ApplicationController
     @books = @user.books
     @book = Book.new
     @today = Date.today
-    # @today = Date.current.strftime('%Y,%m,%d')
-    # @today = Time.now
-    # @today_book = Book.where(created_at: Time.local(@today.to_i)..Time.local(@today.to_i))
-    @today_book = @books.where('created_at > ?', Date.today)
-    @yesterday_book = @books.where('created_at > ?', Date.today-1)
-
+    @today_book = @books.where('created_at > ?', Date.today).count
+    @yesterday_book = @books.where('created_at > ?', Date.today-1).count
+    if @yesterday_book == 0
+      @book_deff = number_to_percentage(@today_book.count)
+    elsif @yesterday_book != 0
+      @book_deff = (@today_book / @yesterday_book.to_f).to_f
+    end
+    # @book_deff = ((10 / 3) *100).round(0)
+    # @book_deff = ((10 / 3) *100).floor(2)
+    # @this_week_book = Book.where(created_at: Time.local(@today.to_i)..Time.local(@today.to_i))
+    @this_week_book = @books.where(created_at: Date.today-6..Date.today.end_of_day).count
+    @last_week_book = @books.where(created_at: Date.today-13..Date.today-7).count
+    if @last_week_book == 0
+      @week_book_deff = @this_week_book
+    elsif @last_week_book != 0
+      @week_book_deff = (@this_week_book / @last_week_book.to_f)
+    end
   end
 
   def index

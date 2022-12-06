@@ -1,7 +1,8 @@
 <table class='table table-bordered'>
   Date(インスタント変数)-7: <%= @today-7 %><br>
-  Date-1: <%= Date.today-1 %><br>
+  Date.today-1: <%= Date.today-1 %><br>
   Date.current: <%= Date.current %><br>
+  Time.now: <%= Time.now %><br>
   Time.now-1.day: <%= Time.now-1.day %><br>
   Time.current-1.day: <%= Time.current-1.day %><br>
   Time.current.strftime('%Y,%m,%d'): <%= Time.current.strftime('%Y,%m,%d') %><br>
@@ -12,15 +13,14 @@
       <th>前日比</th>
     </tr>
     <tr>
-      <td><%= @today_book.count %></td>
-      <td><%= @yesterday_book.count %></td>
-      <td>3</td>
+      <td><%= @today_book %></td>
+      <td><%= @yesterday_book %></td>
+      <td><%= number_to_percentage(@book_deff *100, precision:0) %></td>
     </tr>
-    <!--(@books.created_at('%Y/%m/%d') == @today).count-->
-    <!--@date == @books.created_at('%Y/%m/%d').count-->
   </thead>
 </table>
 
+<%= number_to_percentage(100, precision:0) %>
 <table class='table table-bordered'>
   <thead>
     <tr>
@@ -29,9 +29,9 @@
       <th>前週比</th>
     </tr>
     <tr>
-      <td>1</td>
-      <td>2</td>
-      <td>3</td>
+      <td><%= @this_week_book %></td>
+      <td><%= @last_week_book %></td>
+      <td><%= number_to_percentage(@week_book_deff *100, precision:0) %></td>
     </tr>
   </thead>
 </table>

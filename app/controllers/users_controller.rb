@@ -5,6 +5,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @books = @user.books
     @book = Book.new
+    @today = Date.today
+    # @today = Date.current.strftime('%Y,%m,%d')
+    # @today = Time.now
+    # @today_book = Book.where(created_at: Time.local(@today.to_i)..Time.local(@today.to_i))
+    @today_book = @books.where('created_at > ?', Date.today)
+    @yesterday_book = @books.where('created_at > ?', Date.today-1)
+
   end
 
   def index
@@ -41,9 +48,9 @@ class UsersController < ApplicationController
   end
 
   def ensure_correct_user
-	if current_user.id != params[:id].to_i
-		flash[:notice] = "権限がありません"
-		redirect_to user_path(current_user)
-	end
-end
+  	if current_user.id != params[:id].to_i
+  		flash[:notice] = "権限がありません"
+  		redirect_to user_path(current_user)
+  	end
+  end
 end

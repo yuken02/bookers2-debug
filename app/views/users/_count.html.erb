@@ -1,0 +1,37 @@
+<table class='table table-bordered'>
+  Date(インスタント変数)-7: <%= @today-7 %><br>
+  Date-1: <%= Date.today-1 %><br>
+  Date.current: <%= Date.current %><br>
+  Time.now-1.day: <%= Time.now-1.day %><br>
+  Time.current-1.day: <%= Time.current-1.day %><br>
+  Time.current.strftime('%Y,%m,%d'): <%= Time.current.strftime('%Y,%m,%d') %><br>
+  <thead>
+    <tr>
+      <th>今日の投稿数</th>
+      <th>前日の投稿数</th>
+      <th>前日比</th>
+    </tr>
+    <tr>
+      <td><%= @today_book.count %></td>
+      <td><%= @yesterday_book.count %></td>
+      <td>3</td>
+    </tr>
+    <!--(@books.created_at('%Y/%m/%d') == @today).count-->
+    <!--@date == @books.created_at('%Y/%m/%d').count-->
+  </thead>
+</table>
+
+<table class='table table-bordered'>
+  <thead>
+    <tr>
+      <th>今週の投稿数</th>
+      <th>先週の投稿数</th>
+      <th>前週比</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+  </thead>
+</table>

@@ -6,14 +6,19 @@
       <th>前日比</th>
     </tr>
     <tr>
-      <td><%= @today_book %></td>
-      <td><%= @yesterday_book %></td>
-      <td><%= number_to_percentage(@book_deff *100, precision:0) %></td>
+      <td><%= @today_book.count %></td>
+      <td><%= @yesterday_book.count %></td>
+      <td>
+        <% if @yesterday_book.count == 0 %>
+          <%= @today_book.count * 100 %>%
+        <% else %>
+          <%= (@day_deff * 100).round %>%
+        <% end %>
+      </td>
     </tr>
   </thead>
 </table>
 
-<%= number_to_percentage(100, precision:0) %>
 <table class='table table-bordered'>
   <thead>
     <tr>
@@ -22,14 +27,20 @@
       <th>前週比</th>
     </tr>
     <tr>
-      <td><%= @this_week_book %></td>
-      <td><%= @last_week_book %></td>
-      <td><%= number_to_percentage(@week_book_deff *100, precision:0) %></td>
+      <td><%= @this_week_book.count %></td>
+      <td><%= @last_week_book.count %></td>
+      <td>
+        <% if @last_week_book.count == 0 %>
+          <%= @this_week_book.count * 100 %>%
+        <% else %>
+          <%= (@week_deff * 100).round %>%
+        <% end %>
+      </td>
     </tr>
   </thead>
 </table>
 
-  Date(インスタント変数)-7: <%= @today-7 %><br>
+  Date(インスタント変数)-7: <%= Date.today-7 %><br>
   Date.today-1: <%= Date.today-1 %><br>
   Date.current: <%= Date.current %><br>
   Time.now: <%= Time.now %><br>

@@ -5,23 +5,29 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @books = @user.books
     @book = Book.new
-    
-    ### 投稿数 
-    @today = Date.today
-    @today_book = @books.where('created_at > ?', Date.today).count
-    @yesterday_book = @books.where('created_at > ?', Date.today-1).count
-    if @yesterday_book == 0
-      @book_deff = number_to_percentage(@today_book.count)
-    elsif @yesterday_book != 0
-      @book_deff = (@today_book / @yesterday_book.to_f).to_f
-    end
-    @this_week_book = @books.where(created_at: Date.today-6..Date.today.end_of_day).count
-    @last_week_book = @books.where(created_at: Date.today-13..Date.today-7).count
-    if @last_week_book == 0
-      @week_book_deff = @this_week_book
-    elsif @last_week_book != 0
-      @week_book_deff = (@this_week_book / @last_week_book.to_f)
-    end
+
+    ### 投稿数比較
+    @today_book =  @books.created_today
+    @yesterday_book = @books.created_yesterday
+    @this_week_book = @books.created_this_week
+    @last_week_book = @books.created_last_week
+    @day_deff = @today_book.count / @yesterday_book.count.to_f
+    @week_deff = @this_week_book.count / @last_week_book.count.to_f
+
+    # @today = Date.today
+    # @yesterday_book = @books.where('created_at > ?', Date.today-1).count
+    # if @yesterday_book == 0
+    #   @book_deff = number_to_percentage(@today_book.count)
+    # elsif @yesterday_book != 0
+    #   @book_deff = (@today_book / @yesterday_book.to_f).to_f
+    # end
+    # @this_week_book = @books.where(created_at: Date.today-6..Date.today.end_of_day).count
+    # @last_week_book = @books.where(created_at: Date.today-13..Date.today-7).count
+    # if @last_week_book == 0
+    #   @week_book_deff = @this_week_book
+    # elsif @last_week_book != 0
+    #   @week_book_deff = (@this_week_book / @last_week_book.to_f)
+    # end
   end
 
   def index

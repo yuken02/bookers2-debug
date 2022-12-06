@@ -5,6 +5,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @books = @user.books
     @book = Book.new
+    
+    ### 投稿数 
     @today = Date.today
     @today_book = @books.where('created_at > ?', Date.today).count
     @yesterday_book = @books.where('created_at > ?', Date.today-1).count
@@ -13,9 +15,6 @@ class UsersController < ApplicationController
     elsif @yesterday_book != 0
       @book_deff = (@today_book / @yesterday_book.to_f).to_f
     end
-    # @book_deff = ((10 / 3) *100).round(0)
-    # @book_deff = ((10 / 3) *100).floor(2)
-    # @this_week_book = Book.where(created_at: Time.local(@today.to_i)..Time.local(@today.to_i))
     @this_week_book = @books.where(created_at: Date.today-6..Date.today.end_of_day).count
     @last_week_book = @books.where(created_at: Date.today-13..Date.today-7).count
     if @last_week_book == 0

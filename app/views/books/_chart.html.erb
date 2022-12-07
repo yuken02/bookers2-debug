@@ -1,0 +1,68 @@
+<div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>6日前</th>
+        <th>5日前</th>
+        <th>4日前</th>
+        <th>3日前</th>
+        <th>2日前</th>
+        <th>1日前</th>
+        <th>今日</th>
+      </tr>
+      <tr>
+        <td><%= books.created_6days_ago.count %></td>
+        <td><%= books.created_5days_ago.count %></td>
+        <td><%= books.created_4days_ago.count %></td>
+        <td><%= books.created_3days_ago.count %></td>
+        <td><%= books.created_2days_ago.count %></td>
+        <td><%= books.created_yesterday.count %></td>
+        <td><%= books.created_today.count %></td>
+      </tr>
+    </thead>
+  </table>
+</div>
+
+<div [data-turbolinks="false"]>
+  <canvas id="booksChart"></canvas>
+
+  <script>
+    var ctx = document.getElementById("booksChart");
+    var booksChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['6日前', '5日前', '4日前', '3日前', '2日前', '1日前', '今日'],
+        datasets: [
+          {
+            label: '投稿した本の数',
+            data: [
+              <%= books.created_6days_ago.count %>,
+              <%= books.created_5days_ago.count %>,
+              <%= books.created_4days_ago.count %>,
+              <%= books.created_3days_ago.count %>,
+              <%= books.created_2days_ago.count %>,
+              <%= books.created_yesterday.count %>,
+              <%= books.created_today.count %>
+            ],
+            borderColor: 'blue',
+            backgroundColor: 'rgba(0,0,0,0)'
+          },
+        ],
+      },
+      options: {
+        title: {
+          dispray: true,
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              suggestedMax: 10,
+              suggestedMin: 0,
+              stepSize: 1,
+            }
+          }]
+        },
+      }
+    });
+  </script>
+</div>

@@ -7,12 +7,12 @@ class UsersController < ApplicationController
     @book = Book.new
 
     ### 投稿数比較
-    @today_book =  @books.created_today
-    @yesterday_book = @books.created_yesterday
-    @this_week_book = @books.created_this_week
-    @last_week_book = @books.created_last_week
-    @day_deff = @today_book.count / @yesterday_book.count.to_f
-    @week_deff = @this_week_book.count / @last_week_book.count.to_f
+    @today_books =  @books.created_today
+    @yesterday_books = @books.created_yesterday
+    @this_week_books = @books.created_this_week
+    @last_week_books = @books.created_last_week
+    @day_deff = @today_books.count / @yesterday_books.count.to_f
+    @week_deff = @this_week_books.count / @last_week_books.count.to_f
 
     # @today = Date.today
     # @yesterday_book = @books.where('created_at > ?', Date.today-1).count
@@ -33,8 +33,6 @@ class UsersController < ApplicationController
   def index
     @users = User.all
     @book = Book.new
-    # @q = User.ransack(params[:q])
-    # @results = @q.result(distinct: true)
   end
 
   def edit

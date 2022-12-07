@@ -12,6 +12,9 @@
 
       <h2>投稿数の前日比・前週比</h2>
       <%= render 'count', books: @books %>
+
+      <h4>7日間分の投稿数</h4>
+      <%= render 'books/chart', books: @books %>
     </div>
   </div>
 </div>

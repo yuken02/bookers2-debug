@@ -13,21 +13,6 @@ class UsersController < ApplicationController
     @last_week_books = @books.created_last_week
     @day_deff = @today_books.count / @yesterday_books.count.to_f
     @week_deff = @this_week_books.count / @last_week_books.count.to_f
-
-    # @today = Date.today
-    # @yesterday_book = @books.where('created_at > ?', Date.today-1).count
-    # if @yesterday_book == 0
-    #   @book_deff = number_to_percentage(@today_book.count)
-    # elsif @yesterday_book != 0
-    #   @book_deff = (@today_book / @yesterday_book.to_f).to_f
-    # end
-    # @this_week_book = @books.where(created_at: Date.today-6..Date.today.end_of_day).count
-    # @last_week_book = @books.where(created_at: Date.today-13..Date.today-7).count
-    # if @last_week_book == 0
-    #   @week_book_deff = @this_week_book
-    # elsif @last_week_book != 0
-    #   @week_book_deff = (@this_week_book / @last_week_book.to_f)
-    # end
   end
 
   def index
@@ -45,6 +30,17 @@ class UsersController < ApplicationController
       redirect_to user_path(@user), notice: "You have updated user successfully."
     else
       render "edit"
+    end
+  end
+
+  def search
+    @user = User.find(params[:user_id])
+    @books = @user.books
+    if params[:created_at] == ''
+      @search_book = '日付を入力してください'
+    else
+      created_at = params[:created_at]
+      @search_book = @books.where(["created_at LIKE?", "#{created_at}%"]).count
     end
   end
 

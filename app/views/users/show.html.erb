@@ -10,11 +10,17 @@
       <h2>Books</h2>
       <%= render 'books/index',books: @books %>
 
-      <h2>投稿数の前日比・前週比</h2>
+      <h4>投稿数の前日比・前週比</h4>
       <%= render 'count', books: @books %>
 
       <h4>7日間分の投稿数</h4>
-      <%= render 'books/chart', books: @books %>
+      <%= render 'chart', books: @books %>
+
+      <%= form_with url: user_search_path(@user), class: 'my-2', local: false, method: :get do |f| %>
+        <%= f.date_field :created_at %>
+        <%= f.submit "検索", class: 'btn btn-primary' %>
+      <% end %>
+      <%= render 'search', books: @books %>
     </div>
   </div>
 </div>

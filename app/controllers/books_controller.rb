@@ -7,15 +7,15 @@ class BooksController < ApplicationController
 
   def index
     @book = Book.new
-    @books = Book.all
-    # @favorited_users = favorited_users.includes(:favorites)
-    # to = Time.current.at_end_of_day
-    # from = (to - 6.day).at_beginning_of_day
-    # @books = Book.includes(:favorited_users).
-    #   sort {|a,b|
-    #     b.favorited_users.includes(:favorites).where(created_at: from...to).size <=>
-    #     a.favorited_users.includes(:favorites).where(created_at: from...to).size
-    #   }
+    @books_chart = Book.all
+    # @books = Book.includes(:favorited_users).sort.reverse
+    to  = Time.current.at_end_of_day
+    from  = (to - 6.day).at_beginning_of_day
+    @books = Book.includes(:favorited_users).
+      sort_by {|x|
+        x.favorited_users.includes(:favorites).where(created_at: from...to).size
+      }.reverse
+    # @books = Book.joins(:favorites).where(favorites: {created_at: from..to}).group(:book_id).order("count(book_id) desc")
   end
 
   def create

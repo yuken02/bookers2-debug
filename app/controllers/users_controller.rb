@@ -13,6 +13,30 @@ class UsersController < ApplicationController
     @last_week_books = @books.created_last_week
     @day_deff = @today_books.count / @yesterday_books.count.to_f
     @week_deff = @this_week_books.count / @last_week_books.count.to_f
+
+    ### DM機能
+    @current_entry = Entry.where(user_id: current_user.id)
+    @user_entry = Entry.where(user_id: @user.id)
+    unless @user.id == current_user.id
+      @current_entry.each do |cu|
+        @user_entry.each do |u|
+          if cu.room_id == u.room_id then
+            @room = true
+            @room_id = cu.room_id
+          end
+        end
+      end
+      unless @room
+        @room = Room.new
+        @entry = Entry.new
+      end
+    end
+
+    # rooms = current_user.entry.pluck(:room_id)
+    # user_room = Entry.find_by(user_id: @user.id, room_id: rooms)
+    # if user_room.nil?
+    #   @room = Room.create()
+    #   Entry.create(user_id: current.id, room_id: @room.id)
   end
 
   def index
@@ -43,6 +67,7 @@ class UsersController < ApplicationController
       @search_book = @books.where(["created_at LIKE?", "#{created_at}%"]).count
     end
   end
+
 
   private
 

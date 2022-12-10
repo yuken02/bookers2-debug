@@ -1,0 +1,13 @@
+<h3><%= @user_entry.user.name %> さんとのチャット</h2>
+
+<div id="message_<%= @room.id %>">
+  <%= render 'message', messages: @messages %>
+</div>
+
+<div>
+  <%= form_with model: @message, method: :post, local: false, id: 'message_form' do |f| %>
+    <%= f.text_field :body %>
+    <%= f.hidden_field :room_id, value: @room.id %>
+    <% f.submit %>
+  <% end %>
+</div>

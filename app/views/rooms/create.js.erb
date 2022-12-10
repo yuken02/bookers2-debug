@@ -1,0 +1,2 @@
+$("#message<%= @room.id %>").html("<%= j(render 'message', messages: @messages) %>">;
+$("textarea").val('')

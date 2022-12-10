@@ -1,0 +1,7 @@
+<% if messages.present? %>
+  <% messages.each do |message| %>
+    <p>
+      <%= message.body %>
+    </p>
+  <% end %>
+<% end %>
